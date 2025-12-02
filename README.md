@@ -3,10 +3,10 @@
 ---
 
 ## 1. Introduction & Objective
-[cite_start]**Objective:** To formulate a portfolio optimization problem, verify its convexity, introduce a non-convex constraint to observe the impact on performance, and restore convexity to recover optimal results [cite: 39-40, 86].
+**Objective:** To formulate a portfolio optimization problem, verify its convexity, introduce a non-convex constraint to observe the impact on performance, and restore convexity to recover optimal results.
 
 **Dataset:**
-* [cite_start]**Source:** Real-world stock data fetched via `yfinance`[cite: 42].
+* **Source:** Real-world stock data fetched via `yfinance`.
 * **Assets:** AAPL, MSFT, AMZN, GOOGL, META.
 * **Timeframe:** 2020-01-01 to 2025-01-01.
 * **Metric:** Daily Returns and Covariance Matrix ($\Sigma$).
@@ -16,7 +16,7 @@
 ## 2. Mathematical Formulation & Convexity Analysis
 
 ### Phase 1: The Convex Model (Original)
-[cite_start]**Optimization Goal:** Minimize Portfolio Risk (Variance) subject to full investment[cite: 45].
+**Optimization Goal:** Minimize Portfolio Risk (Variance) subject to full investment.
 
 * **Objective Function:**
   $$\text{minimize } w^T \Sigma w$$
@@ -24,12 +24,12 @@
 * **Constraints:**
   1. $\sum_{i=1}^{n} w_i = 1$ (Affine Equality)
   2. $w \succeq 0$ (Affine Inequality)
-  * [cite_start]**Justification:** Linear equalities and inequalities form a polyhedron, which is a convex set[cite: 185].
+  * **Justification:** Linear equalities and inequalities form a polyhedron, which is a convex set.
 
 **Conclusion:** Minimizing a convex function over a convex set is a **Convex Optimization Problem**.
 
 ### Phase 2: The Non-Convex Model (Modified)
-[cite_start]**Modification:** We introduced a concentration constraint forcing the sum of squared weights to exceed a threshold [cite: 59-60].
+**Modification:** We introduced a concentration constraint forcing the sum of squared weights to exceed a threshold.
 
 * **New Constraint:**
   $$\sum_{i=1}^{n} w_i^2 \geq 0.5$$
@@ -42,9 +42,9 @@
 **Conclusion:** The feasible set is now non-convex, making the problem **Non-Convex**.
 
 ### Phase 3: Restored Convexity
-**Action:** The non-convex constraint ($\sum w_i^2 \geq 0.5$) was removed. [cite_start]The model reverted to the original linear constraints [cite: 61-63].
+**Action:** The non-convex constraint ($\sum w_i^2 \geq 0.5$) was removed. The model reverted to the original linear constraints .
 
-* [cite_start]**Result:** The problem satisfies DCP (Disciplined Convex Programming) rules again and is solvable by standard convex solvers[cite: 187].
+**Result:** The problem satisfies DCP (Disciplined Convex Programming) rules again and is solvable by standard convex solvers.
 
 ---
 
@@ -53,7 +53,7 @@
 **Visual Analysis:**
 The graph below displays the Risk (Standard Deviation) vs. Expected Return for all three cases.
 
-![Portfolio Optimization Graph](image_55f4a0.png)
+![Portfolio Optimization Graph](portfolio_graph.png)
 
 **Insights:**
 1. **Original:** The solver found the global minimum risk (~0.018). This represents the optimal diversification benefit.
@@ -62,5 +62,3 @@ The graph below displays the Risk (Standard Deviation) vs. Expected Return for a
    * **Takeaway:** Non-convex constraints often restrict the feasible set in ways that eliminate the benefits of diversification, forcing the portfolio into sub-optimal, high-risk positions.
 3. **Restored (Green Circle):** Upon removing the bad constraint, the solution perfectly overlapped with the original Blue Star, proving the model was successfully restored.
 
-
-plt.show()
